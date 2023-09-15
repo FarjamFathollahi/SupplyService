@@ -23,6 +23,7 @@ namespace SupplyService.Domain.Entities
             Description = description;
             UserId = userId;
             Department = supplyRequestDepartment;
+            UpdatedAt =DateTime.Now;
         }
 
         public void EditSupplyRequest(string title, string description, SupplyRequestDepartment supplyRequestDepartment)
@@ -30,10 +31,12 @@ namespace SupplyService.Domain.Entities
             Title = title;
             Description = description;
             Department = supplyRequestDepartment;
+            UpdatedAt = DateTime.Now;
         }
 
         public void Delete()
         {
+            UpdatedAt = DateTime.Now;
             IsDeleted = true;
         }
     }

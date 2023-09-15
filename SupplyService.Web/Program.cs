@@ -6,6 +6,11 @@ using SupplyService.Infrastructure.Repositories;
 using SupplyService.Application;
 using System.Formats.Asn1;
 using SupplyService.Application.SupplyRequests;
+using SupplyService.Contracts.LogService;
+using SupplyService.Infrastructure.LogService;
+using SupplyService.Contracts.Communication;
+using SupplyService.Infrastructure.Communication;
+using SupplyService.Contracts.Users.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,7 +28,10 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<ISupplyRequestRepository, SupplyRequestRepository>();
-
+builder.Services.AddScoped<ILoggerService, LoggerDatabaseService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<ISmsService, SmsService>();
+builder.Services.AddScoped<IUserRepository, UserReposirtory>();
 var assembly = typeof(CreateSupplyRequestCommandHandler).Assembly;
 //var assemblies = AppDomain.CurrentDomain.GetAssemblies().Where(a => a.FullName.Contains("SupplyService")).ToArray();
 builder.Services.AddMediatR(conf => conf.RegisterServicesFromAssembly(assembly));

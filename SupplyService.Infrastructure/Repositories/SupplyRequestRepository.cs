@@ -14,7 +14,7 @@ namespace SupplyService.Infrastructure.Repositories
         }
         public async Task AddSupplyRequestAsync(SupplyRequest supplyRequest, CancellationToken cancellationToken = default)
         {
-            await _context.AddAsync(supplyRequest, cancellationToken);
+            await _context.SupplyRequests.AddAsync(supplyRequest, cancellationToken);
         }
 
         public async Task<List<SupplyRequest>> GetAllSupplyRequestsAsync(string userId, CancellationToken cancellationToken = default)
@@ -24,7 +24,7 @@ namespace SupplyService.Infrastructure.Repositories
 
         public async Task<SupplyRequest> GetSupplyRequestAsync(string id, string userId, CancellationToken cancellationToken = default)
         {
-            return await _context.SupplyRequests.Where(s => s.UserId == userId && s.Id == id).SingleOrDefaultAsync(cancellationToken);
+            return await _context.SupplyRequests.Include(s=> s.User).Where(s => s.UserId == userId && s.Id == id).SingleOrDefaultAsync(cancellationToken);
         }
 
         public async Task SaveChangesAsync(CancellationToken cancellationToken = default)

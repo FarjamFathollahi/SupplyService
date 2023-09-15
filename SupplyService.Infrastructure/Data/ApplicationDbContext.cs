@@ -12,6 +12,7 @@ namespace SupplyService.Infrastructure.Data
         }
 
         public DbSet<SupplyRequest> SupplyRequests { get; set; }
+        public DbSet<Log> Logs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
